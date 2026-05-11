@@ -110,10 +110,10 @@ export function Hero() {
           return (
             <line
               key={i}
-              x1={310 + Math.cos(a) * r1}
-              y1={310 + Math.sin(a) * r1}
-              x2={310 + Math.cos(a) * r2}
-              y2={310 + Math.sin(a) * r2}
+              x1={Number((310 + Math.cos(a) * r1).toFixed(3))}
+              y1={Number((310 + Math.sin(a) * r1).toFixed(3))}
+              x2={Number((310 + Math.cos(a) * r2).toFixed(3))}
+              y2={Number((310 + Math.sin(a) * r2).toFixed(3))}
               stroke="oklch(0.85 0.02 240)"
               strokeOpacity="0.35"
               strokeWidth="1"
