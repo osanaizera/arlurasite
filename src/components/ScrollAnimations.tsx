@@ -1,111 +1,120 @@
 import { useEffect } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 /**
- * Site-wide scroll-triggered animations using GSAP + ScrollTrigger.
+ * Site-wide scroll-triggered reveal animations using IntersectionObserver
+ * + CSS classes defined in styles.css (.reveal-on-scroll).
+ *
+ * Marks targets as hidden via inline style on mount, then reveals them when
+ * they intersect the viewport. Uses GSAP only for hero parallax.
  */
 export function ScrollAnimations() {
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const ctx = gsap.context(() => {
-      // Reveal targets across the page
-      const revealGroups: Array<{ trigger: Element; targets: Element[] }> = [];
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
 
-      gsap.utils
-        .toArray<HTMLElement>("section:not(#top), footer")
-        .forEach((section) => {
-          // Headings + paragraphs + CTAs
-          const headings = Array.from(
-            section.querySelectorAll<HTMLElement>(
-              "h2, h3, .reveal-text, .reveal-item"
-            )
-          );
-          const paragraphs = Array.from(
-            section.querySelectorAll<HTMLElement>(
-              ":scope p, :scope .reveal-paragraph"
-            )
-          ).filter((el) => !el.closest("article"));
+    // Collect reveal targets across the page
+    const sections = document.querySelectorAll<HTMLElement>(
+      "section:not(#top), footer"
+    );
 
-          const introTargets = [...headings, ...paragraphs];
-          if (introTargets.length) {
-            revealGroups.push({ trigger: section, targets: introTargets });
-          }
+    const targets: HTMLElement[] = [];
 
-          // Cards
-          const cards = Array.from(
-            section.querySelectorAll<HTMLElement>("article, [data-reveal-card]")
-          );
-          if (cards.length) {
-            revealGroups.push({ trigger: cards[0], targets: cards });
-          }
+    sections.forEach((section) => {
+      // Headings + intro paragraphs (not inside cards)
+      section
+        .querySelectorAll<HTMLElement>("h2, h3, p, .reveal-item, [data-reveal]")
+        .forEach((el) => {
+          if (!el.closest("article")) targets.push(el);
         });
-
-      revealGroups.forEach(({ trigger, targets }) => {
-        gsap.set(targets, { opacity: 0, y: 40 });
-        ScrollTrigger.create({
-          trigger,
-          start: "top 88%",
-          once: true,
-          onEnter: () => {
-            gsap.to(targets, {
-              opacity: 1,
-              y: 0,
-              duration: 0.9,
-              stagger: 0.08,
-              ease: "power3.out",
-              overwrite: "auto",
-            });
-          },
-        });
-      });
-
-      // Hero blueprint parallax
-      const blueprint = document.querySelector<SVGElement>(".hero-blueprint");
-      if (blueprint) {
-        gsap.to(blueprint, {
-          yPercent: 18,
-          rotate: 6,
-          ease: "none",
-          scrollTrigger: {
-            trigger: "#top",
-            start: "top top",
-            end: "bottom top",
-            scrub: true,
-          },
-        });
-      }
-
-      // Hero background subtle parallax
-      const heroImg = document.querySelector<HTMLElement>("#top img");
-      if (heroImg) {
-        gsap.to(heroImg, {
-          yPercent: 12,
-          scale: 1.06,
-          ease: "none",
-          scrollTrigger: {
-            trigger: "#top",
-            start: "top top",
-            end: "bottom top",
-            scrub: true,
-          },
-        });
-      }
-
-      // Refresh after fonts/images settle
-      requestAnimationFrame(() => ScrollTrigger.refresh());
-      window.addEventListener("load", () => ScrollTrigger.refresh());
+      // Cards
+      section
+        .querySelectorAll<HTMLElement>("article, [data-reveal-card]")
+        .forEach((el) => targets.push(el));
     });
 
+    if (reduceMotion) return;
+
+    // Apply hidden state
+    targets.forEach((el, i) => {
+      el.classList.add("reveal-on-scroll");
+      // Stagger via CSS variable
+      const parent = el.parentElement;
+      const siblingIndex = parent
+        ? Array.from(parent.children).indexOf(el)
+        : i;
+      el.style.transitionDelay = `${Math.min(siblingIndex, 6) * 80}ms`;
+    });
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-revealed");
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+    );
+
+    targets.forEach((el) => io.observe(el));
+
+    // Hero parallax via GSAP (loaded only client-side, dynamic)
+    let cleanupParallax = () => {};
+    (async () => {
+      try {
+        const { gsap } = await import("gsap");
+        const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+        gsap.registerPlugin(ScrollTrigger);
+
+        const triggers: any[] = [];
+
+        const blueprint = document.querySelector<SVGElement>(".hero-blueprint");
+        if (blueprint) {
+          const tw = gsap.to(blueprint, {
+            yPercent: 18,
+            rotate: 6,
+            ease: "none",
+            scrollTrigger: {
+              trigger: "#top",
+              start: "top top",
+              end: "bottom top",
+              scrub: true,
+            },
+          });
+          triggers.push(tw.scrollTrigger);
+        }
+
+        const heroImg = document.querySelector<HTMLElement>("#top img");
+        if (heroImg) {
+          const tw = gsap.to(heroImg, {
+            yPercent: 12,
+            scale: 1.06,
+            ease: "none",
+            scrollTrigger: {
+              trigger: "#top",
+              start: "top top",
+              end: "bottom top",
+              scrub: true,
+            },
+          });
+          triggers.push(tw.scrollTrigger);
+        }
+
+        cleanupParallax = () => {
+          triggers.forEach((t) => t?.kill?.());
+        };
+      } catch {
+        // ignore
+      }
+    })();
+
     return () => {
-      ctx.revert();
-      ScrollTrigger.getAll().forEach((t) => t.kill());
+      io.disconnect();
+      cleanupParallax();
     };
   }, []);
 
