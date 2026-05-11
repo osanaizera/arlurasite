@@ -31,7 +31,7 @@ export function Team() {
               Equipe Arlura
             </div>
             <h2 className="mt-4 text-4xl md:text-5xl font-semibold text-foreground text-balance">
-              Engenheiros formados pela UFSC, ativos na indústria e na ciência.
+              Engenheiros formados pela <span className="text-gradient-brand">UFSC</span>, ativos na indústria e na ciência.
             </h2>
           </div>
           <p className="lg:col-span-5 text-lg text-muted-foreground leading-relaxed">

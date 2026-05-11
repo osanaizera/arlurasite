@@ -34,7 +34,8 @@ export function Services() {
             Áreas de atuação
           </div>
           <h2 className="mt-4 text-4xl md:text-5xl font-semibold text-foreground text-balance">
-            Da matéria-prima ao laudo final, com rigor de quem entende o todo.
+            Da matéria-prima ao{" "}
+            <span className="text-gradient-brand">laudo final</span>, com rigor de quem entende o todo.
           </h2>
           <p className="mt-5 text-lg text-muted-foreground leading-relaxed">
             Combinamos conhecimento acadêmico, prática industrial e domínio normativo
