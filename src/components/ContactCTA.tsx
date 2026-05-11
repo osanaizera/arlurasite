@@ -14,7 +14,7 @@ export function ContactCTA() {
                 Vamos conversar
               </div>
               <h2 className="mt-4 text-3xl md:text-5xl font-semibold text-on-deep text-balance">
-                Tem um caso técnico, uma falha ou uma dúvida normativa?
+                Tem um <span className="text-gradient-accent">caso técnico</span>, uma falha ou uma dúvida normativa?
               </h2>
               <p className="mt-5 text-lg text-muted-on-deep leading-relaxed">
                 Conte com a Arlura para uma análise inicial. Respondemos com
