@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import logo from "@/assets/arlura-logo.png";
 
 const navItems = [
   { label: "Serviços", href: "#servicos" },
@@ -30,14 +29,13 @@ export function SiteHeader() {
     >
       <div className="container-x flex h-20 items-center justify-between">
         <a href="#top" className="flex items-center gap-3 group">
-          <img
-            src={logo}
-            alt="Arlura"
-            width={44}
-            height={44}
-            className={`h-11 w-auto transition ${scrolled ? "brightness-0" : ""}`}
-          />
-          <div className="leading-tight hidden sm:block">
+          <div className="flex h-10 w-10 items-center justify-center rounded-md bg-primary text-primary-foreground font-bold tracking-tight">
+            A
+          </div>
+          <div className="leading-tight">
+            <div className={`font-semibold tracking-[0.18em] text-sm ${scrolled ? "text-foreground" : "text-on-deep"}`}>
+              ARLURA
+            </div>
             <div className={`text-[10px] uppercase tracking-[0.22em] ${scrolled ? "text-muted-foreground" : "text-muted-on-deep"}`}>
               Engenharia & Materiais
             </div>

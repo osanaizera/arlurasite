@@ -1,5 +1,3 @@
-import logo from "@/assets/arlura-logo.png";
-
 export function ContactCTA() {
   return (
     <section id="contato" className="py-24 md:py-32 bg-background">
