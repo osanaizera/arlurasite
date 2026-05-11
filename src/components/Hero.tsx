@@ -44,7 +44,7 @@ export function Hero() {
 
       {/* Engineering blueprint SVG (right side) */}
       <svg
-        className="pointer-events-none absolute -right-16 top-1/2 -translate-y-1/2 hidden lg:block opacity-70"
+        className="hero-blueprint pointer-events-none absolute -right-16 top-1/2 -translate-y-1/2 hidden lg:block opacity-70"
         width="620"
         height="620"
         viewBox="0 0 620 620"
