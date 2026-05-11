@@ -1,3 +1,5 @@
+import logo from "@/assets/arlura-logo.png";
+
 export function ContactCTA() {
   return (
     <section id="contato" className="py-24 md:py-32 bg-background">
@@ -72,16 +74,9 @@ export function SiteFooter() {
     <footer className="border-t border-border bg-background">
       <div className="container-x py-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary text-primary-foreground font-bold">
-            A
-          </div>
-          <div className="text-sm">
-            <div className="font-semibold tracking-[0.18em] text-foreground">
-              ARLURA
-            </div>
-            <div className="text-xs text-muted-foreground">
-              Engenharia & Materiais
-            </div>
+          <img src={logo} alt="Arlura" width={40} height={40} className="h-10 w-auto brightness-0" />
+          <div className="text-xs text-muted-foreground uppercase tracking-[0.22em]">
+            Engenharia & Materiais
           </div>
         </div>
         <p className="text-xs text-muted-foreground">

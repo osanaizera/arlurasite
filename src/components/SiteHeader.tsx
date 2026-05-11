@@ -35,7 +35,7 @@ export function SiteHeader() {
             alt="Arlura"
             width={44}
             height={44}
-            className={`h-11 w-auto transition ${scrolled ? "" : "brightness-0 invert"}`}
+            className={`h-11 w-auto transition ${scrolled ? "brightness-0" : ""}`}
           />
           <div className="leading-tight hidden sm:block">
             <div className={`text-[10px] uppercase tracking-[0.22em] ${scrolled ? "text-muted-foreground" : "text-muted-on-deep"}`}>
