@@ -42,35 +42,125 @@ export function Hero() {
         aria-hidden
       />
 
-      {/* Decorative tech SVG (right side) */}
+      {/* Engineering blueprint SVG (right side) */}
       <svg
-        className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 hidden lg:block opacity-50"
-        width="520"
-        height="520"
-        viewBox="0 0 520 520"
+        className="pointer-events-none absolute -right-16 top-1/2 -translate-y-1/2 hidden lg:block opacity-70"
+        width="620"
+        height="620"
+        viewBox="0 0 620 620"
         fill="none"
         aria-hidden
       >
         <defs>
           <linearGradient id="techStroke" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="oklch(0.72 0.13 55)" stopOpacity="0.9" />
-            <stop offset="100%" stopColor="oklch(0.72 0.13 55)" stopOpacity="0" />
+            <stop offset="0%" stopColor="oklch(0.72 0.13 55)" stopOpacity="0.95" />
+            <stop offset="100%" stopColor="oklch(0.72 0.13 55)" stopOpacity="0.1" />
           </linearGradient>
+          <linearGradient id="bluePrint" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor="oklch(0.85 0.02 240)" stopOpacity="0.45" />
+            <stop offset="100%" stopColor="oklch(0.85 0.02 240)" stopOpacity="0.05" />
+          </linearGradient>
+          {/* Gear path: 16 teeth */}
+          <symbol id="gear" viewBox="-100 -100 200 200">
+            <path
+              d="M 0 -86 L 10 -86 L 14 -74 L 22 -74 L 26 -86 L 36 -82
+                 L 50 -70 L 46 -60 L 54 -54 L 64 -60 L 70 -50
+                 L 76 -36 L 64 -32 L 66 -22 L 78 -22 L 82 -10
+                 L 86 4 L 74 8 L 74 18 L 86 22 L 82 32
+                 L 74 46 L 64 42 L 58 50 L 64 60 L 54 66
+                 L 42 76 L 34 68 L 24 72 L 24 86 L 12 86
+                 L -2 84 L -2 72 L -12 70 L -18 80 L -28 76
+                 L -42 68 L -36 58 L -44 52 L -54 56 L -60 46
+                 L -68 32 L -56 28 L -58 18 L -70 16 L -72 4
+                 L -72 -10 L -60 -14 L -60 -24 L -72 -28 L -68 -38
+                 L -58 -50 L -48 -44 L -42 -52 L -48 -62 L -38 -68
+                 L -24 -76 L -16 -68 L -6 -72 L -6 -86 Z"
+              fill="none"
+              stroke="oklch(0.72 0.13 55)"
+              strokeWidth="1.5"
+            />
+            <circle r="42" fill="none" stroke="oklch(0.72 0.13 55)" strokeWidth="1.2" />
+            <circle r="14" fill="none" stroke="oklch(0.72 0.13 55)" strokeWidth="1" />
+            {[0, 60, 120, 180, 240, 300].map((a) => (
+              <circle
+                key={a}
+                cx={Math.cos((a * Math.PI) / 180) * 26}
+                cy={Math.sin((a * Math.PI) / 180) * 26}
+                r="3"
+                fill="oklch(0.72 0.13 55)"
+                opacity="0.6"
+              />
+            ))}
+          </symbol>
         </defs>
-        <circle cx="260" cy="260" r="120" stroke="url(#techStroke)" strokeWidth="1" />
-        <circle cx="260" cy="260" r="180" stroke="url(#techStroke)" strokeWidth="1" />
-        <circle cx="260" cy="260" r="240" stroke="url(#techStroke)" strokeWidth="1" />
-        <circle cx="260" cy="260" r="4" fill="oklch(0.72 0.13 55)" className="pulse-dot" />
-        <circle cx="380" cy="260" r="3" fill="oklch(0.72 0.13 55)" className="pulse-dot" style={{ animationDelay: "-0.6s" }} />
-        <circle cx="260" cy="80" r="3" fill="oklch(0.72 0.13 55)" className="pulse-dot" style={{ animationDelay: "-1.2s" }} />
-        <circle cx="80" cy="260" r="3" fill="oklch(0.72 0.13 55)" className="pulse-dot" style={{ animationDelay: "-1.8s" }} />
+
+        {/* Outer reference circles */}
+        <circle cx="310" cy="310" r="290" stroke="url(#bluePrint)" strokeWidth="1" strokeDasharray="2 6" />
+        <circle cx="310" cy="310" r="220" stroke="url(#bluePrint)" strokeWidth="1" />
+
+        {/* Crosshair / center axes */}
+        <line x1="20" y1="310" x2="600" y2="310" stroke="url(#bluePrint)" strokeWidth="0.8" strokeDasharray="6 4" />
+        <line x1="310" y1="20" x2="310" y2="600" stroke="url(#bluePrint)" strokeWidth="0.8" strokeDasharray="6 4" />
+
+        {/* Tick marks around outer circle */}
+        {Array.from({ length: 36 }).map((_, i) => {
+          const a = (i * 10 * Math.PI) / 180;
+          const r1 = 290;
+          const r2 = i % 3 === 0 ? 275 : 282;
+          return (
+            <line
+              key={i}
+              x1={310 + Math.cos(a) * r1}
+              y1={310 + Math.sin(a) * r1}
+              x2={310 + Math.cos(a) * r2}
+              y2={310 + Math.sin(a) * r2}
+              stroke="oklch(0.85 0.02 240)"
+              strokeOpacity="0.35"
+              strokeWidth="1"
+            />
+          );
+        })}
+
+        {/* Main rotating gear */}
+        <g style={{ transformOrigin: "310px 310px", animation: "spinSlow 28s linear infinite" }}>
+          <use href="#gear" x="210" y="210" width="200" height="200" />
+        </g>
+
+        {/* Smaller counter-rotating gear */}
+        <g style={{ transformOrigin: "470px 200px", animation: "spinSlowReverse 18s linear infinite" }}>
+          <use href="#gear" x="410" y="140" width="120" height="120" opacity="0.85" />
+        </g>
+
+        {/* Dimension line with arrows */}
+        <g stroke="oklch(0.85 0.02 240)" strokeOpacity="0.55" strokeWidth="0.8" fill="none">
+          <line x1="90" y1="470" x2="240" y2="470" />
+          <line x1="90" y1="464" x2="90" y2="476" />
+          <line x1="240" y1="464" x2="240" y2="476" />
+          <polyline points="96,466 90,470 96,474" />
+          <polyline points="234,466 240,470 234,474" />
+        </g>
+        <text x="165" y="462" textAnchor="middle" fontFamily="ui-monospace, monospace" fontSize="10" fill="oklch(0.85 0.02 240)" fillOpacity="0.7">
+          150.00 mm
+        </text>
+
+        {/* Annotation pointer */}
+        <g stroke="oklch(0.72 0.13 55)" strokeOpacity="0.7" strokeWidth="0.9" fill="none">
+          <circle cx="310" cy="310" r="3" fill="oklch(0.72 0.13 55)" />
+          <line x1="310" y1="310" x2="430" y2="430" />
+          <line x1="430" y1="430" x2="500" y2="430" />
+        </g>
+        <text x="438" y="424" fontFamily="ui-monospace, monospace" fontSize="10" fill="oklch(0.72 0.13 55)" fillOpacity="0.85">
+          ⌀ Ø42.5 H7
+        </text>
+
+        {/* Animated trace path */}
         <path
-          d="M 60 260 Q 200 100 460 200"
+          d="M 40 310 Q 180 120 310 310 T 580 310"
           stroke="url(#techStroke)"
           strokeWidth="1.2"
           fill="none"
           strokeDasharray="800"
-          style={{ animation: "drawLine 4s ease-out forwards" }}
+          style={{ animation: "drawLine 5s ease-out forwards" }}
         />
       </svg>
 

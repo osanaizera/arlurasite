@@ -254,3 +254,11 @@
   to { stroke-dashoffset: 0; }
 }
 
+@keyframes spinSlow {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spinSlowReverse {
+  to { transform: rotate(-360deg); }
+}
+
