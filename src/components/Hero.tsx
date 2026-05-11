@@ -84,8 +84,8 @@ export function Hero() {
             {[0, 60, 120, 180, 240, 300].map((a) => (
               <circle
                 key={a}
-                cx={Math.cos((a * Math.PI) / 180) * 26}
-                cy={Math.sin((a * Math.PI) / 180) * 26}
+                cx={Number((Math.cos((a * Math.PI) / 180) * 26).toFixed(3))}
+                cy={Number((Math.sin((a * Math.PI) / 180) * 26).toFixed(3))}
                 r="3"
                 fill="oklch(0.72 0.13 55)"
                 opacity="0.6"
