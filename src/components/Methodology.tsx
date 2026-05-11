@@ -37,7 +37,7 @@ export function Methodology() {
             Metodologia
           </div>
           <h2 className="mt-4 text-4xl md:text-5xl font-semibold text-on-deep text-balance">
-            Um método que une ciência, norma e prática industrial.
+            Um método que une <span className="text-gradient-accent">ciência, norma e prática</span> industrial.
           </h2>
           <p className="mt-5 text-lg text-muted-on-deep leading-relaxed max-w-xl">
             Cada projeto segue um protocolo claro de investigação técnica — para que o
