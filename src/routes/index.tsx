@@ -6,6 +6,7 @@ import { Methodology } from "@/components/Methodology";
 import { Team } from "@/components/Team";
 import { Blog } from "@/components/Blog";
 import { ContactCTA, SiteFooter } from "@/components/ContactCTA";
+import { ScrollAnimations } from "@/components/ScrollAnimations";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -50,6 +51,7 @@ function Index() {
         <ContactCTA />
       </main>
       <SiteFooter />
+      <ScrollAnimations />
     </div>
   );
 }

@@ -44,7 +44,7 @@ export function Hero() {
 
       {/* Engineering blueprint SVG (right side) */}
       <svg
-        className="pointer-events-none absolute -right-16 top-1/2 -translate-y-1/2 hidden lg:block opacity-70"
+        className="hero-blueprint pointer-events-none absolute -right-16 top-1/2 -translate-y-1/2 hidden lg:block opacity-70"
         width="620"
         height="620"
         viewBox="0 0 620 620"
@@ -84,8 +84,8 @@ export function Hero() {
             {[0, 60, 120, 180, 240, 300].map((a) => (
               <circle
                 key={a}
-                cx={Math.cos((a * Math.PI) / 180) * 26}
-                cy={Math.sin((a * Math.PI) / 180) * 26}
+                cx={Number((Math.cos((a * Math.PI) / 180) * 26).toFixed(3))}
+                cy={Number((Math.sin((a * Math.PI) / 180) * 26).toFixed(3))}
                 r="3"
                 fill="oklch(0.72 0.13 55)"
                 opacity="0.6"
@@ -110,10 +110,10 @@ export function Hero() {
           return (
             <line
               key={i}
-              x1={310 + Math.cos(a) * r1}
-              y1={310 + Math.sin(a) * r1}
-              x2={310 + Math.cos(a) * r2}
-              y2={310 + Math.sin(a) * r2}
+              x1={Number((310 + Math.cos(a) * r1).toFixed(3))}
+              y1={Number((310 + Math.sin(a) * r1).toFixed(3))}
+              x2={Number((310 + Math.cos(a) * r2).toFixed(3))}
+              y2={Number((310 + Math.sin(a) * r2).toFixed(3))}
               stroke="oklch(0.85 0.02 240)"
               strokeOpacity="0.35"
               strokeWidth="1"
