@@ -32,10 +32,7 @@ export function Hero() {
             Decisões de engenharia
             <br />
             sustentadas por{" "}
-            <span className="bg-clip-text text-transparent bg-accent-gradient">
-              evidência técnica
-            </span>
-            .
+            <span className="text-gradient-accent">evidência técnica</span>.
           </h1>
 
           <p className="mt-7 max-w-2xl text-lg md:text-xl text-muted-on-deep leading-relaxed">
