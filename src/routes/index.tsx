@@ -51,6 +51,7 @@ function Index() {
         <ContactCTA />
       </main>
       <SiteFooter />
+      <ScrollAnimations />
     </div>
   );
 }
