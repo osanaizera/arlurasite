@@ -1,90 +1,82 @@
 import { useEffect } from "react";
 
 /**
- * Site-wide scroll-triggered animations using GSAP + ScrollTrigger.
- * Reveals headings, intro blocks, cards and applies subtle parallax.
+ * Site-wide scroll-triggered reveal animations using IntersectionObserver
+ * + CSS classes defined in styles.css (.reveal-on-scroll).
+ *
+ * Marks targets as hidden via inline style on mount, then reveals them when
+ * they intersect the viewport. Uses GSAP only for hero parallax.
  */
 export function ScrollAnimations() {
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    let ctx: any;
-    let cleanup = () => {};
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
 
+    // Collect reveal targets across the page
+    const sections = document.querySelectorAll<HTMLElement>(
+      "section:not(#top), footer"
+    );
+
+    const targets: HTMLElement[] = [];
+
+    sections.forEach((section) => {
+      // Headings + intro paragraphs (not inside cards)
+      section
+        .querySelectorAll<HTMLElement>("h2, h3, p, .reveal-item, [data-reveal]")
+        .forEach((el) => {
+          if (!el.closest("article")) targets.push(el);
+        });
+      // Cards
+      section
+        .querySelectorAll<HTMLElement>("article, [data-reveal-card]")
+        .forEach((el) => targets.push(el));
+    });
+
+    if (reduceMotion) return;
+
+    // Apply hidden state
+    targets.forEach((el, i) => {
+      el.classList.add("reveal-on-scroll");
+      // Stagger via CSS variable
+      const parent = el.parentElement;
+      const siblingIndex = parent
+        ? Array.from(parent.children).indexOf(el)
+        : i;
+      el.style.transitionDelay = `${Math.min(siblingIndex, 6) * 80}ms`;
+    });
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-revealed");
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+    );
+
+    targets.forEach((el) => io.observe(el));
+
+    // Hero parallax via GSAP (loaded only client-side, dynamic)
+    let cleanupParallax = () => {};
     (async () => {
-      const gsapMod = await import("gsap");
-      const stMod = await import("gsap/ScrollTrigger");
-      const gsap = gsapMod.gsap ?? gsapMod.default;
-      const ScrollTrigger = stMod.ScrollTrigger ?? stMod.default;
-      gsap.registerPlugin(ScrollTrigger);
+      try {
+        const { gsap } = await import("gsap");
+        const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+        gsap.registerPlugin(ScrollTrigger);
 
-      ctx = gsap.context(() => {
-        // Animate intro blocks of every section (skip hero which already animates)
-        gsap.utils
-          .toArray<HTMLElement>("section:not(#top)")
-          .forEach((section) => {
-            const intro = section.querySelector<HTMLElement>(
-              ".container-x > div:first-child"
-            );
-            if (intro && intro.children.length) {
-              gsap.from(Array.from(intro.children), {
-                y: 36,
-                opacity: 0,
-                duration: 0.9,
-                stagger: 0.08,
-                ease: "power3.out",
-                scrollTrigger: {
-                  trigger: intro,
-                  start: "top 82%",
-                  toggleActions: "play none none none",
-                },
-              });
-            }
+        const triggers: any[] = [];
 
-            // Card-like grids
-            const cards = section.querySelectorAll<HTMLElement>(
-              "article, [data-reveal-card]"
-            );
-            if (cards.length) {
-              gsap.from(cards, {
-                y: 56,
-                opacity: 0,
-                duration: 0.85,
-                stagger: 0.1,
-                ease: "power3.out",
-                scrollTrigger: {
-                  trigger: cards[0],
-                  start: "top 88%",
-                  toggleActions: "play none none none",
-                },
-              });
-            }
-
-            // Generic data-reveal items
-            const reveals = section.querySelectorAll<HTMLElement>("[data-reveal]");
-            if (reveals.length) {
-              gsap.from(reveals, {
-                y: 30,
-                opacity: 0,
-                duration: 0.8,
-                stagger: 0.08,
-                ease: "power3.out",
-                scrollTrigger: {
-                  trigger: section,
-                  start: "top 75%",
-                  toggleActions: "play none none none",
-                },
-              });
-            }
-          });
-
-        // Hero blueprint parallax
         const blueprint = document.querySelector<SVGElement>(".hero-blueprint");
         if (blueprint) {
-          gsap.to(blueprint, {
+          const tw = gsap.to(blueprint, {
             yPercent: 18,
-            rotate: 8,
+            rotate: 6,
             ease: "none",
             scrollTrigger: {
               trigger: "#top",
@@ -93,14 +85,14 @@ export function ScrollAnimations() {
               scrub: true,
             },
           });
+          triggers.push(tw.scrollTrigger);
         }
 
-        // Hero background image subtle zoom-out parallax
         const heroImg = document.querySelector<HTMLElement>("#top img");
         if (heroImg) {
-          gsap.to(heroImg, {
+          const tw = gsap.to(heroImg, {
             yPercent: 12,
-            scale: 1.08,
+            scale: 1.06,
             ease: "none",
             scrollTrigger: {
               trigger: "#top",
@@ -109,18 +101,21 @@ export function ScrollAnimations() {
               scrub: true,
             },
           });
+          triggers.push(tw.scrollTrigger);
         }
 
-        ScrollTrigger.refresh();
-      });
-
-      cleanup = () => {
-        ctx?.revert();
-        ScrollTrigger.getAll().forEach((t: any) => t.kill());
-      };
+        cleanupParallax = () => {
+          triggers.forEach((t) => t?.kill?.());
+        };
+      } catch {
+        // ignore
+      }
     })();
 
-    return () => cleanup();
+    return () => {
+      io.disconnect();
+      cleanupParallax();
+    };
   }, []);
 
   return null;

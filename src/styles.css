@@ -197,6 +197,28 @@
     animation: fadeInUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
+  /* Scroll-triggered reveal (used by ScrollAnimations.tsx).
+     Hidden state until .is-revealed is added by the IntersectionObserver. */
+  .reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+  .reveal-on-scroll.is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-on-scroll {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
   .tech-grid {
     background-image:
       linear-gradient(to right, oklch(1 0 0 / 0.06) 1px, transparent 1px),
