@@ -35,7 +35,7 @@ export function Blog() {
               Insights técnicos
             </div>
             <h2 className="mt-4 text-3xl md:text-5xl font-semibold text-foreground text-balance">
-              Conhecimento aplicado para decisões melhores.
+              Conhecimento aplicado para <span className="text-gradient-brand">decisões melhores</span>.
             </h2>
             <p className="mt-5 text-lg text-muted-foreground leading-relaxed">
               Artigos curtos sobre engenharia de materiais, conformidade e
