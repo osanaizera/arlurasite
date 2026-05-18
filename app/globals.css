@@ -255,27 +255,6 @@
     }
   }
 
-  .tech-grid {
-    background-image:
-      linear-gradient(to right, oklch(1 0 0 / 0.06) 1px, transparent 1px),
-      linear-gradient(to bottom, oklch(1 0 0 / 0.06) 1px, transparent 1px);
-    background-size: 56px 56px;
-    mask-image: radial-gradient(ellipse at 30% 40%, black 30%, transparent 75%);
-    -webkit-mask-image: radial-gradient(ellipse at 30% 40%, black 30%, transparent 75%);
-  }
-
-  .scan-line {
-    animation: scanline 6s linear infinite;
-  }
-
-  .float-orb {
-    animation: floatOrb 9s ease-in-out infinite;
-  }
-
-  .pulse-dot {
-    animation: pulseDot 2.4s ease-in-out infinite;
-  }
-
   .text-gradient-accent {
     background-image: var(--gradient-accent);
     -webkit-background-clip: text;
@@ -306,65 +285,5 @@
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes scanline {
-  0% {
-    transform: translateY(-10%);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(110%);
-    opacity: 0;
-  }
-}
-
-@keyframes floatOrb {
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-  50% {
-    transform: translate(20px, -30px) scale(1.08);
-  }
-}
-
-@keyframes pulseDot {
-  0%,
-  100% {
-    opacity: 0.4;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.4);
-  }
-}
-
-@keyframes drawLine {
-  from {
-    stroke-dashoffset: 800;
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-@keyframes spinSlow {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes spinSlowReverse {
-  to {
-    transform: rotate(-360deg);
   }
 }

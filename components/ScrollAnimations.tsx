@@ -68,22 +68,6 @@ export function ScrollAnimations() {
 
         const triggers: ReturnType<typeof ScrollTrigger.create>[] = [];
 
-        const blueprint = document.querySelector<SVGElement>(".hero-blueprint");
-        if (blueprint) {
-          const tw = gsap.to(blueprint, {
-            yPercent: 18,
-            rotate: 6,
-            ease: "none",
-            scrollTrigger: {
-              trigger: "#top",
-              start: "top top",
-              end: "bottom top",
-              scrub: true,
-            },
-          });
-          if (tw.scrollTrigger) triggers.push(tw.scrollTrigger);
-        }
-
         const heroImg = document.querySelector<HTMLElement>("#top img");
         if (heroImg) {
           const tw = gsap.to(heroImg, {
