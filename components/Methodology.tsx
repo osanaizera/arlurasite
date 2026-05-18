@@ -67,7 +67,7 @@ export function Methodology() {
         <div className="relative">
           <div className="relative rounded-2xl overflow-hidden border hairline-border shadow-elegant">
             <Image
-              src="/lab-analysis.jpg"
+              src="/analise.webp"
               alt="Engenheiro analisando componente metálico com paquímetro em laboratório"
               width={1024}
               height={1024}
