@@ -3,25 +3,37 @@ const services = [
     n: "01",
     title: "Perícias e Assistência Técnica",
     body: "Atuação como peritos e assistentes técnicos em demandas judiciais e extrajudiciais, com análises fundamentadas e embasamento técnico-científico para escritórios jurídicos e seguradoras.",
+    example:
+      "Ex: parafuso estrutural fraturou em serviço — o laudo precisa determinar se foi defeito de fabricação, montagem inadequada ou fadiga.",
     tags: ["Laudos periciais", "Análise de falhas", "Pareceres técnicos"],
+    sectors: ["Jurídico", "Seguros", "Metal-mecânico"],
   },
   {
     n: "02",
     title: "Consultoria em Engenharia",
     body: "Suporte especializado para indústrias que buscam otimizar processos, avaliar desempenho de materiais e assegurar conformidade com normas e requisitos do setor.",
+    example:
+      "Ex: indústria precisa selecionar o aço correto para um ambiente com alta corrosão e validar a escolha com a norma ABNT aplicável.",
     tags: ["Otimização de processos", "Seleção de materiais", "Normatização"],
+    sectors: ["Metal-mecânico", "Óleo & Gás", "Construção civil"],
   },
   {
     n: "03",
     title: "Análise de Materiais e Produtos",
     body: "Avaliação técnica de matérias-primas e produtos processados, identificando características, defeitos e causas raízes de falhas a partir de metodologias normatizadas.",
+    example:
+      "Ex: lote de matéria-prima recebido com suspeita de não-conformidade — ensaios confirmam se atende à especificação do fornecedor.",
     tags: ["Caracterização", "Ensaios mecânicos", "Análise de falhas"],
+    sectors: ["Automotivo", "Metal-mecânico", "Óleo & Gás"],
   },
   {
     n: "04",
     title: "Certificação e Conformidade",
     body: "Apoio na validação de produtos e processos, garantindo adequação a normas técnicas, padrões de qualidade e requisitos legais — nacionais e internacionais.",
+    example:
+      "Ex: fabricante de dispositivo médico precisa comprovar que o produto atende aos requisitos da ANVISA e normas ISO antes do registro.",
     tags: ["ABNT", "Auditorias técnicas", "Validação de fornecedores"],
+    sectors: ["Dispositivos médicos", "Automotivo", "Construção civil"],
   },
 ];
 
@@ -57,6 +69,7 @@ export function Services() {
               </div>
               <h3 className="mt-6 text-2xl font-semibold text-foreground">{s.title}</h3>
               <p className="mt-4 text-foreground/70 leading-relaxed">{s.body}</p>
+              <p className="mt-3 text-sm italic text-foreground/50 leading-relaxed">{s.example}</p>
               <div className="mt-6 flex flex-wrap gap-2">
                 {s.tags.map((t) => (
                   <span
@@ -64,6 +77,16 @@ export function Services() {
                     className="inline-flex rounded-full bg-secondary text-secondary-foreground px-3 py-1 text-xs font-medium"
                   >
                     {t}
+                  </span>
+                ))}
+              </div>
+              <div className="mt-3 flex flex-wrap gap-1.5">
+                {s.sectors.map((sec) => (
+                  <span
+                    key={sec}
+                    className="inline-flex rounded-full border border-border px-2.5 py-0.5 text-[11px] text-muted-foreground"
+                  >
+                    {sec}
                   </span>
                 ))}
               </div>

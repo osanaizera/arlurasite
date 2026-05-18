@@ -5,21 +5,21 @@ const team = [
     name: "Arthur Paiva Grimaldi Santos",
     photo: "/team-arthur.jpg",
     role: "Mestre em Engenharia Mecânica · UFSC",
-    bio: "Atuação em biomateriais, projeto mecânico e engenharia de materiais aplicada ao setor metal-mecânico. Experiência em caracterização de produtos industriais, análise ao longo da cadeia logística e ensaios periciais.",
+    bio: "Experiência no LEBm (Laboratório de Engenharia Biomecânica do HU/UFSC) em avaliação de segurança e eficácia de implantes ortopédicos. Atua com ensaios mecânicos e biomecânicos, caracterização de produtos industriais e perícias judiciais no setor metal-mecânico.",
     linkedin: "https://www.linkedin.com/in/arthurpgsantos",
   },
   {
     name: "Luciano Fontes e Silva",
     photo: "/team-luciano.jpg",
     role: "Eng. de Produção Mecânica · UFSC",
-    bio: "Foco em projeto mecânico, materiais e processos de fabricação. Sólida experiência em normatização técnica, sendo membro de comitês da ABNT, com atuação em cadeias logísticas nacionais e internacionais.",
+    bio: "Atuou como Gerente Técnico no LEBm/HU-UFSC e é membro de comissões da ABNT/CB-026 (comitê de dispositivos médico-hospitalares). Experiência em cadeia de suprimentos, qualidade industrial e normatização técnica aplicada a processos de fabricação.",
     linkedin: "http://linkedin.com/in/luciano-fontes-e-silva-974b6a58",
   },
   {
     name: "Rafael Santiago Floriani Pereira",
     photo: "/team-rafael.jpg",
     role: "Doutor em Ciência e Eng. de Materiais · UFSC",
-    bio: "Atuação nas áreas metal-mecânica, cerâmica e de engenharia de materiais aplicada a processos de fabricação. Caracterização de materiais, propriedades mecânicas, análise de falhas e ensaios periciais.",
+    bio: "Tese de doutorado em cerâmicas avançadas (zircônia) com foco em tribologia. Atua em análise de falhas metalúrgicas, ensaios destrutivos e não-destrutivos, e caracterização de materiais para os setores metal-mecânico e cerâmico.",
     linkedin: "http://linkedin.com/in/rsfpereira",
   },
 ];
@@ -39,9 +39,9 @@ export function Team() {
             </h2>
           </div>
           <p className="lg:col-span-5 text-lg text-muted-foreground leading-relaxed">
-            Equipe complementar e em constante atualização. Combinamos pesquisa acadêmica, atuação
-            pericial e experiência industrial para oferecer respostas seguras a empresas,
-            escritórios de advocacia e órgãos públicos.
+            Formados pela UFSC e com passagem pelo Laboratório de Engenharia Biomecânica (LEBm/HU) —
+            referência nacional em ensaios de dispositivos médicos e implantes —, combinamos
+            pesquisa acadêmica, atuação pericial e experiência industrial.
           </p>
         </div>
 

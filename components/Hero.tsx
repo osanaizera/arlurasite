@@ -221,9 +221,9 @@ export function Hero() {
           </h1>
 
           <p className="mt-7 max-w-2xl text-lg md:text-xl text-muted-on-deep leading-relaxed">
-            Somos uma consultoria especializada em materiais, perícias e conformidade industrial.
-            Transformamos rigor científico em laudos, pareceres e soluções que protegem operações,
-            contratos e produtos.
+            Investigamos falhas, caracterizamos materiais e emitimos laudos técnicos defensáveis —
+            para indústrias, escritórios jurídicos e seguradoras que precisam de respostas claras
+            sobre o que aconteceu e por quê.
           </p>
 
           <div className="mt-10 flex flex-wrap items-center gap-4">
@@ -242,11 +242,28 @@ export function Hero() {
             </a>
           </div>
 
+          <div className="mt-10 flex flex-wrap gap-2">
+            {[
+              "Metal-mecânico",
+              "Dispositivos médicos",
+              "Óleo & Gás",
+              "Construção civil",
+              "Automotivo",
+            ].map((setor) => (
+              <span
+                key={setor}
+                className="inline-flex rounded-full border hairline-border bg-white/5 backdrop-blur px-3.5 py-1.5 text-xs font-medium text-muted-on-deep"
+              >
+                {setor}
+              </span>
+            ))}
+          </div>
+
           <dl className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-2xl">
             {[
               { k: "UFSC", v: "Formação acadêmica de excelência" },
               { k: "ABNT", v: "Membros de comitês técnicos" },
-              { k: "+15", v: "Anos de experiência somados" },
+              { k: "+15", v: "Anos de atuação da equipe" },
               { k: "100%", v: "Laudos com rastreabilidade" },
             ].map((s) => (
               <div key={s.k} className="border-l hairline-border pl-4">
