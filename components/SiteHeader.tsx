@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 const navItems = [
   { label: "Serviços", href: "#servicos" },
@@ -30,18 +31,21 @@ export function SiteHeader() {
       }`}
     >
       <div className="container-x flex h-20 items-center justify-between">
-        <a href="#top" className="flex items-center gap-3 group">
-          <div className="flex h-10 w-10 items-center justify-center rounded-md bg-primary text-primary-foreground font-bold tracking-tight">
-            A
-          </div>
-          <div className="leading-tight">
+        <a
+          href="#top"
+          className="flex items-center gap-3 group"
+          aria-label="Arlura — Engenharia & Materiais"
+        >
+          <Image
+            src={scrolled ? "/arlura-logo-dark.png" : "/arlura-logo-white.png"}
+            alt="Arlura"
+            width={140}
+            height={56}
+            className="h-12 w-auto object-contain transition-opacity"
+          />
+          <div className="hidden sm:block leading-tight border-l border-border/40 pl-3">
             <div
-              className={`font-semibold tracking-[0.18em] text-sm ${scrolled ? "text-foreground" : "text-on-deep"}`}
-            >
-              ARLURA
-            </div>
-            <div
-              className={`text-[10px] uppercase tracking-[0.22em] ${scrolled ? "text-muted-foreground" : "text-muted-on-deep"}`}
+              className={`text-[10px] uppercase tracking-[0.28em] ${scrolled ? "text-muted-foreground" : "text-muted-on-deep"}`}
             >
               Engenharia & Materiais
             </div>

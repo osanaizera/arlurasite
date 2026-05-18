@@ -63,17 +63,22 @@ export function ContactCTA() {
   );
 }
 
+import Image from "next/image";
+
 export function SiteFooter() {
   return (
     <footer className="border-t border-border bg-background">
       <div className="container-x py-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary text-primary-foreground font-bold">
-            A
-          </div>
-          <div className="text-sm">
-            <div className="font-semibold tracking-[0.18em] text-foreground">ARLURA</div>
-            <div className="text-xs text-muted-foreground">Engenharia & Materiais</div>
+          <Image
+            src="/arlura-logo-dark.png"
+            alt="Arlura"
+            width={120}
+            height={48}
+            className="h-11 w-auto object-contain"
+          />
+          <div className="text-xs text-muted-foreground border-l border-border pl-3 uppercase tracking-[0.22em]">
+            Engenharia & Materiais
           </div>
         </div>
         <p className="text-xs text-muted-foreground">

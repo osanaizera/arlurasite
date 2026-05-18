@@ -1,18 +1,23 @@
+import Image from "next/image";
+
 const team = [
   {
     name: "Arthur Paiva Grimaldi Santos",
+    photo: "/team-arthur.jpg",
     role: "Mestre em Engenharia Mecânica · UFSC",
     bio: "Atuação em biomateriais, projeto mecânico e engenharia de materiais aplicada ao setor metal-mecânico. Experiência em caracterização de produtos industriais, análise ao longo da cadeia logística e ensaios periciais.",
     linkedin: "https://www.linkedin.com/in/arthurpgsantos",
   },
   {
     name: "Luciano Fontes e Silva",
+    photo: "/team-luciano.jpg",
     role: "Eng. de Produção Mecânica · UFSC",
     bio: "Foco em projeto mecânico, materiais e processos de fabricação. Sólida experiência em normatização técnica, sendo membro de comitês da ABNT, com atuação em cadeias logísticas nacionais e internacionais.",
     linkedin: "http://linkedin.com/in/luciano-fontes-e-silva-974b6a58",
   },
   {
     name: "Rafael Santiago Floriani Pereira",
+    photo: "/team-rafael.jpg",
     role: "Doutor em Ciência e Eng. de Materiais · UFSC",
     bio: "Atuação nas áreas metal-mecânica, cerâmica e de engenharia de materiais aplicada a processos de fabricação. Caracterização de materiais, propriedades mecânicas, análise de falhas e ensaios periciais.",
     linkedin: "http://linkedin.com/in/rsfpereira",
@@ -47,12 +52,16 @@ export function Team() {
               className="group relative overflow-hidden rounded-2xl border border-border bg-card p-8 shadow-card-soft transition-all hover:shadow-elegant hover:-translate-y-1"
             >
               <div className="absolute inset-x-0 top-0 h-1 bg-accent-gradient opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div
-                className="h-32 -mx-8 -mt-8 mb-6 bg-cover bg-center"
-                style={{
-                  backgroundImage: `linear-gradient(180deg, oklch(0.16 0.04 255 / 0.2), oklch(0.16 0.04 255 / 0.85)), url(/microstructure.jpg)`,
-                }}
-              />
+              <div className="-mx-8 -mt-8 mb-6 aspect-[4/3] overflow-hidden bg-muted">
+                <Image
+                  src={m.photo}
+                  alt={m.name}
+                  width={900}
+                  height={675}
+                  loading="lazy"
+                  className="h-full w-full object-cover object-center grayscale-[15%] transition-all duration-700 group-hover:scale-[1.04] group-hover:grayscale-0"
+                />
+              </div>
               <h3 className="text-xl font-semibold text-foreground">{m.name}</h3>
               <p className="mt-1 text-sm text-accent font-medium">{m.role}</p>
               <p className="mt-4 text-foreground/70 text-sm leading-relaxed">{m.bio}</p>
